@@ -9,7 +9,7 @@ const Sidebar = () => {
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
         <TabsContent value="env">
-          <form action="">
+          <form className="prose" action="">
             <fieldset>
               <legend>Dev</legend>
               <label htmlFor="dev-url">URL</label>
