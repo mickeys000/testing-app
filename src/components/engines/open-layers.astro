@@ -1,0 +1,24 @@
+<article class="w-full h-full">
+  <div id="map-openlayers" class="w-full h-full grow"></div>
+</article>
+
+<script>
+  import Map from "ol/Map.js";
+  import OSM from "ol/source/OSM.js";
+  import TileLayer from "ol/layer/Tile.js";
+  import View from "ol/View.js";
+  import "ol/ol.css";
+
+  const mapOpenLayers = new Map({
+    target: "map-openlayers",
+    layers: [
+      new TileLayer({
+        source: new OSM(),
+      }),
+    ],
+    view: new View({
+      center: [0, 0],
+      zoom: 3,
+    }),
+  });
+</script>

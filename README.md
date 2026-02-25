@@ -1,43 +1,36 @@
-# Astro Starter Kit: Minimal
+# Mapping Library Testing App
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+Astro app for testing multiple mapping engines across multiple UI frameworks.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Routing model
 
-## 🚀 Project Structure
+The app now uses route hierarchy to control which scripts and styles are loaded.
 
-Inside of your Astro project, you'll see the following folders and files:
+- `/` → framework selection
+- `/frameworks/vanilla` → engine selection for vanilla
+- `/frameworks/vanilla/engines/maplibre` → loads only MapLibre assets
+- `/frameworks/vanilla/engines/leaflet` → loads only Leaflet assets
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Each engine page injects its own dependencies in a head slot, so no other mapping library code is added to the DOM for that route.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Layouts
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- `src/layouts/base.astro`: shared document shell (font, meta, global styles, head slot)
+- `src/layouts/test-harness.astro`: sidebar + map workspace shell for engine pages
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Next framework expansion
 
-## 🧞 Commands
+Follow the same pattern for new frameworks:
 
-All commands are run from the root of the project, from a terminal:
+- `/frameworks/react/...`
+- `/frameworks/vue/...`
+- `/frameworks/solid/...`
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+With per-engine pages under each framework, each route can keep asset loading isolated and predictable.
 
-## 👀 Want to learn more?
+## Commands
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `pnpm install` installs dependencies
+- `pnpm dev` starts local dev server at `localhost:4321`
+- `pnpm build` builds production output in `dist/`
+- `pnpm preview` previews the built app

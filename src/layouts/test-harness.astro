@@ -1,0 +1,29 @@
+---
+import BaseLayout from "./base.astro";
+import { Sidebar } from "../components/sidebar";
+
+export interface Props {
+  title: string;
+  framework: string;
+  engine: string;
+}
+
+const { title, framework, engine } = Astro.props;
+---
+
+<BaseLayout title={title}>
+  <slot slot="head" name="head" />
+
+  <main class="flex min-h-screen">
+    <Sidebar client:load />
+    <section class="flex-1 min-h-screen">
+      <header class="px-6 py-4 border-b border-border bg-background">
+        <p class="text-sm text-muted-foreground">Framework: {framework}</p>
+        <h1 class="text-2xl font-semibold">Engine: {engine}</h1>
+      </header>
+      <div class="h-[calc(100vh-89px)]">
+        <slot />
+      </div>
+    </section>
+  </main>
+</BaseLayout>

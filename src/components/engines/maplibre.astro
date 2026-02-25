@@ -1,0 +1,17 @@
+<article class="w-full h-full">
+  <div id="map-maplibre" class="w-full h-full"></div>
+</article>
+
+<script>
+  const mapLibre = new maplibregl.Map({
+    container: "map-maplibre",
+    style: "https://demotiles.maplibre.org/style.json",
+    center: [0, 0],
+    zoom: 1,
+    maplibreLogo: true,
+  });
+
+  window.addEventListener("resize", () => {
+    mapLibre.resize();
+  });
+</script>

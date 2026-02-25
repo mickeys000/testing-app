@@ -1,0 +1,22 @@
+---
+import TestHarnessLayout from "../../../../layouts/test-harness.astro";
+import MapLibreCanvas from "../../../../components/engines/maplibre.astro";
+---
+
+<TestHarnessLayout
+  title="Vanilla + MapLibre"
+  framework="Vanilla"
+  engine="MapLibre"
+>
+  <Fragment slot="head">
+    <link
+      href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <script
+      is:inline
+      src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
+  </Fragment>
+
+  <MapLibreCanvas />
+</TestHarnessLayout>
