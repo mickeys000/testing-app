@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 
@@ -11,4 +11,11 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   integrations: [react()],
+  experimental: {
+        fonts: [{
+            provider: fontProviders.fontsource(),
+            name: "Hanken Grotesk Variable",
+            cssVariable: "--font-hanken-grotesk-variable"
+        }]
+    }
 });

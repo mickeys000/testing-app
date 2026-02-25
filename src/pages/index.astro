@@ -1,10 +1,12 @@
 ---
 import MapCanvas from "../components/map-canvas.astro";
-import { Sidebar } from "../components/sidebar";
+import { Sidebar } from "../components/sidebar";import { Font } from "astro:assets";
+import "../styles/global.css";
 ---
 
 <html lang="en">
   <head>
+		<Font cssVariable="--font-hanken-grotesk-variable" preload />
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
