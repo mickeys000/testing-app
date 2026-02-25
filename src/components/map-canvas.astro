@@ -1,5 +1,6 @@
 <article class="w-full h-full">
-  <div id="map" class="w-full h-full grow"></div>
+  <div id="map-maplibre" class="w-full h-full grow"></div>
+  <div id="map-leaflet" class="w-full h-full grow"></div>
 </article>
 
 <script>
@@ -16,11 +17,18 @@
 </script>
 
 <script>
-  const map = new maplibregl.Map({
-    container: "map", // container id
+  const mapLibre = new maplibregl.Map({
+    container: "map-maplibre", // container id
     style: "https://demotiles.maplibre.org/style.json", // style URL
     center: [0, 0], // starting position [lng, lat]
     zoom: 1, // starting zoom
     maplibreLogo: true,
   });
+
+  const mapLeaflet = L.map("map-leaflet").setView([51.505, -0.09], 13);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution:
+      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(mapLeaflet);
 </script>
