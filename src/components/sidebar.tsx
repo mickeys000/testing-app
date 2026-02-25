@@ -1,14 +1,23 @@
+import { useStore, type TabOptions } from "../stores/global-state";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 
 const Sidebar = () => {
+  const tabs = useStore((state) => state.tab);
+  const setTab = useStore((state) => state.setTab);
+
   return (
     <aside>
-      <Tabs defaultValue="env" className="w-100">
+      <Tabs
+        value={tabs}
+        defaultValue="env"
+        className="w-100"
+        onValueChange={(value) => setTab(value as TabOptions)}
+      >
         <TabsList>
-          <TabsTrigger value="env">Env</TabsTrigger>
-          <TabsTrigger value="settings">Settings</TabsTrigger>
+          <TabsTrigger value={"env"}>Env</TabsTrigger>
+          <TabsTrigger value={"settings"}>Settings</TabsTrigger>
         </TabsList>
-        <TabsContent value="env">
+        <TabsContent value={"env"}>
           <form className="prose" action="">
             <fieldset>
               <legend>Dev</legend>
@@ -35,7 +44,7 @@ const Sidebar = () => {
             </fieldset>
           </form>
         </TabsContent>
-        <TabsContent value="settings">
+        <TabsContent value={"settings"}>
           <h2>Lots of dropdowns for changing settings for the map</h2>
         </TabsContent>
       </Tabs>
