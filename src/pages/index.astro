@@ -6,40 +6,43 @@ import "../styles/global.css";
 ---
 
 <html lang="en">
-  <head>
-    <Font cssVariable="--font-hanken-grotesk" preload />
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <head>
+        <Font cssVariable="--font-hanken-grotesk" preload />
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Astro</title>
 
-    <!-- Map libre -->
-    <link
-      href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css"
-      rel="stylesheet"
-    />
-    <script
-      is:inline
-      src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
+        <!-- Map libre -->
+        <link
+            href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css"
+            rel="stylesheet"
+        />
+        <script
+            is:inline
+            src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"
+        ></script>
 
-    <!-- Leaflet -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
-    <script
-      is:inline
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""></script>
-  </head>
+        <!-- Leaflet -->
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""
+        />
+        <script
+            is:inline
+            src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
 
-  <body class="flex">
-    <Sidebar client:load />
-    <MapCanvas />
-  </body>
+        <!-- OpenLayers is installed via npm -->
+    </head>
+
+    <body class="flex">
+        <Sidebar client:load />
+        <MapCanvas />
+    </body>
 </html>
