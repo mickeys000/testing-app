@@ -7,7 +7,7 @@ import {
 import { useStore } from "zustand";
 
 export type TabOptions = "env" | "settings";
-export type EnvironmentName = "dev" | "staging" | "prod";
+export type EnvironmentName = "local" | "dev" | "test" | "stage" | "prod";
 
 interface EnvironmentConfig {
   url: string;
@@ -17,18 +17,48 @@ interface EnvironmentConfig {
 type TileApiConfig = Record<EnvironmentName, EnvironmentConfig>;
 
 const defaultTileApiConfig: TileApiConfig = {
+  local: { url: "", key: "" },
   dev: { url: "", key: "" },
-  staging: { url: "", key: "" },
+  test: { url: "", key: "" },
+  stage: { url: "", key: "" },
   prod: { url: "", key: "" },
 };
 
 interface GlobalState {
   tab: TabOptions;
+  ngdEnvironment: EnvironmentName;
   tileApiConfig: TileApiConfig;
   setTab: (newTab: TabOptions) => void;
+  setNgdEnvironment: (environment: EnvironmentName) => void;
   setEnvUrl: (env: EnvironmentName, url: string) => void;
   setEnvKey: (env: EnvironmentName, key: string) => void;
 }
+
+const mergeTileApiConfig = (
+  persistedTileApiConfig:
+    | Partial<Record<string, EnvironmentConfig>>
+    | undefined,
+): TileApiConfig => {
+  const stagingValue = persistedTileApiConfig?.staging;
+
+  return {
+    ...defaultTileApiConfig,
+    ...(persistedTileApiConfig?.local
+      ? { local: persistedTileApiConfig.local }
+      : {}),
+    ...(persistedTileApiConfig?.dev ? { dev: persistedTileApiConfig.dev } : {}),
+    ...(persistedTileApiConfig?.test
+      ? { test: persistedTileApiConfig.test }
+      : {}),
+    ...(persistedTileApiConfig?.stage
+      ? { stage: persistedTileApiConfig.stage }
+      : {}),
+    ...(stagingValue ? { stage: stagingValue } : {}),
+    ...(persistedTileApiConfig?.prod
+      ? { prod: persistedTileApiConfig.prod }
+      : {}),
+  };
+};
 
 type WithSelectors<S> = S extends { getState: () => infer T }
   ? S & { use: { [K in keyof T]: () => T[K] } }
@@ -60,14 +90,37 @@ const storageOptions = {
 
     return window.localStorage;
   }),
+  merge: (persistedState: unknown, currentState: GlobalState): GlobalState => {
+    const incoming = (persistedState as Partial<GlobalState> | undefined) ?? {};
+    const incomingEnv = incoming.ngdEnvironment;
+
+    return {
+      ...currentState,
+      ...incoming,
+      ngdEnvironment:
+        incomingEnv &&
+        ["local", "dev", "test", "stage", "prod"].includes(incomingEnv)
+          ? incomingEnv
+          : currentState.ngdEnvironment,
+      tileApiConfig: mergeTileApiConfig(
+        incoming.tileApiConfig as
+          | Partial<Record<string, EnvironmentConfig>>
+          | undefined,
+      ),
+    };
+  },
 };
 
 const globalStore = createStore<GlobalState>()(
   persist<GlobalState>(
     (set) => ({
-      tab: "env",
+      tab: "settings",
+      ngdEnvironment: "local",
       tileApiConfig: defaultTileApiConfig,
       setTab: (newTab: TabOptions) => set({ tab: newTab }),
+      setNgdEnvironment: (environment: EnvironmentName) => {
+        set({ ngdEnvironment: environment });
+      },
       setEnvUrl: (env: EnvironmentName, url: string) => {
         set((state) => ({
           tileApiConfig: {

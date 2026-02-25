@@ -7,9 +7,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 import { Dropdown } from "./dropdown";
 
 const environments: Array<{ key: EnvironmentName; label: string }> = [
+  { key: "local", label: "Local" },
   { key: "dev", label: "Dev" },
-  { key: "staging", label: "Staging" },
-  { key: "prod", label: "Production" },
+  { key: "test", label: "Test" },
+  { key: "stage", label: "Stage" },
+  { key: "prod", label: "Prod" },
 ];
 
 const Sidebar = () => {
@@ -23,12 +25,12 @@ const Sidebar = () => {
     <aside className="w-80 bg-white max-h-screen overflow-y-auto p-4 border-r border-border">
       <Tabs
         value={tabs}
-        defaultValue="env"
+        defaultValue="settings"
         onValueChange={(value) => setTab(value as TabOptions)}
       >
         <TabsList>
-          <TabsTrigger value={"env"}>Env</TabsTrigger>
           <TabsTrigger value={"settings"}>Settings</TabsTrigger>
+          <TabsTrigger value={"env"}>Env</TabsTrigger>
         </TabsList>
         <TabsContent value={"env"}>
           <h2>Environment setup</h2>
