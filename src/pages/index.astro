@@ -1,4 +1,5 @@
 ---
+import MapCanvas from "../components/map-canvas.astro";
 import { Sidebar } from "../components/sidebar";
 ---
 
@@ -15,5 +16,6 @@ import { Sidebar } from "../components/sidebar";
   <body>
     <h1>Astro</h1>
     <Sidebar client:load />
+    <MapCanvas />
   </body>
 </html>

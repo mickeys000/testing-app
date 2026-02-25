@@ -1,0 +1,18 @@
+<article>
+  <h1>Map Canvas</h1>
+  <p>This is where the map will go.</p>
+  <p id="selected-library"></p>
+</article>
+
+<script>
+  import { getMapLibraryFromQuery, logQueryParams } from "../lib/query-params";
+
+  logQueryParams();
+
+  const selectedLibraryElement = document.querySelector("#selected-library");
+  const selectedLibrary = getMapLibraryFromQuery();
+
+  if (selectedLibraryElement && selectedLibrary) {
+    selectedLibraryElement.textContent = selectedLibrary;
+  }
+</script>
