@@ -2,8 +2,8 @@
 @plugin "@tailwindcss/typography";
 @import "@os-frontend/config-tailwind";
 
-@source "../../../node_modules/@os-frontend/components/**/*.{js,ts,jsx,tsx}";
+@source "../../node_modules/@os-frontend/components/**/*.{js,ts,jsx,tsx}";
 
 @theme inline {
-    --font-sans: var(--font-hanken-grotesk);
+  --font-sans: var(--font-hanken-grotesk);
 }
