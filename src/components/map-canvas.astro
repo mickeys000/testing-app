@@ -1,34 +1,43 @@
 <article class="w-full h-full">
-  <div id="map-maplibre" class="w-full h-full grow"></div>
-  <div id="map-leaflet" class="w-full h-full grow"></div>
+    <div id="map-maplibre" class="w-full h-full grow"></div>
+    <div id="map-leaflet" class="w-full h-full grow"></div>
 </article>
 
 <script>
-  import { getMapLibraryFromQuery, logQueryParams } from "../lib/query-params";
+    import {
+        getMapLibraryFromQuery,
+        logQueryParams,
+    } from "../lib/query-params";
+    import { globalStore } from "../stores/global-state";
 
-  logQueryParams();
+    const tab = globalStore.getState().tab;
+    globalStore.subscribe((state) => {
+        console.log("Tab changed:", state.tab);
+    });
 
-  const selectedLibraryElement = document.querySelector("#selected-library");
-  const selectedLibrary = getMapLibraryFromQuery();
+    logQueryParams();
 
-  if (selectedLibraryElement && selectedLibrary) {
-    selectedLibraryElement.textContent = selectedLibrary;
-  }
+    const selectedLibraryElement = document.querySelector("#selected-library");
+    const selectedLibrary = getMapLibraryFromQuery();
+
+    if (selectedLibraryElement && selectedLibrary) {
+        selectedLibraryElement.textContent = selectedLibrary;
+    }
 </script>
 
 <script>
-  const mapLibre = new maplibregl.Map({
-    container: "map-maplibre", // container id
-    style: "https://demotiles.maplibre.org/style.json", // style URL
-    center: [0, 0], // starting position [lng, lat]
-    zoom: 1, // starting zoom
-    maplibreLogo: true,
-  });
+    const mapLibre = new maplibregl.Map({
+        container: "map-maplibre", // container id
+        style: "https://demotiles.maplibre.org/style.json", // style URL
+        center: [0, 0], // starting position [lng, lat]
+        zoom: 1, // starting zoom
+        maplibreLogo: true,
+    });
 
-  const mapLeaflet = L.map("map-leaflet").setView([51.505, -0.09], 13);
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution:
-      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  }).addTo(mapLeaflet);
+    const mapLeaflet = L.map("map-leaflet").setView([51.505, -0.09], 13);
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(mapLeaflet);
 </script>
