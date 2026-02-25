@@ -1,5 +1,6 @@
 import { useStore, type TabOptions } from "../stores/global-state";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
+import { Dropdown } from "./dropdown";
 
 const Sidebar = () => {
   const tabs = useStore((state) => state.tab);
@@ -45,7 +46,7 @@ const Sidebar = () => {
           </form>
         </TabsContent>
         <TabsContent value={"settings"}>
-          <h2>Lots of dropdowns for changing settings for the map</h2>
+          <Dropdown />
         </TabsContent>
       </Tabs>
     </aside>
