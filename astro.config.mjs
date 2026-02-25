@@ -14,8 +14,8 @@ export default defineConfig({
   experimental: {
         fonts: [{
             provider: fontProviders.fontsource(),
-            name: "Hanken Grotesk Variable",
-            cssVariable: "--font-hanken-grotesk-variable"
+            name: "Hanken Grotesk",
+            cssVariable: "--font-hanken-grotesk"
         }]
     }
 });
