@@ -1,6 +1,7 @@
 <article class="w-full h-full">
     <div id="map-maplibre" class="w-full h-full grow"></div>
     <div id="map-leaflet" class="w-full h-full grow"></div>
+    <div id="map-openlayers" class="w-full h-full grow"></div>
 </article>
 
 <script>
@@ -26,6 +27,7 @@
 </script>
 
 <script>
+    // MapLibre
     const mapLibre = new maplibregl.Map({
         container: "map-maplibre", // container id
         style: "https://demotiles.maplibre.org/style.json", // style URL
@@ -34,10 +36,31 @@
         maplibreLogo: true,
     });
 
+    // Leaflet
     const mapLeaflet = L.map("map-leaflet").setView([51.505, -0.09], 13);
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution:
             '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(mapLeaflet);
+
+    // OpenLayers
+    import Map from "ol/Map.js";
+    import OSM from "ol/source/OSM.js";
+    import TileLayer from "ol/layer/Tile.js";
+    import View from "ol/View.js";
+    import "ol/ol.css";
+
+    const mapOpenLayers = new Map({
+        target: "map-openlayers",
+        layers: [
+            new TileLayer({
+                source: new OSM(),
+            }),
+        ],
+        view: new View({
+            center: [0, 0],
+            zoom: 3,
+        }),
+    });
 </script>
