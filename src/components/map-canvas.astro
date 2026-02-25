@@ -1,7 +1,5 @@
-<article>
-  <h1>Map Canvas</h1>
-  <p>This is where the map will go.</p>
-  <p id="selected-library"></p>
+<article class="w-full h-full">
+  <div id="map" class="w-full h-full grow"></div>
 </article>
 
 <script>
@@ -15,4 +13,14 @@
   if (selectedLibraryElement && selectedLibrary) {
     selectedLibraryElement.textContent = selectedLibrary;
   }
+</script>
+
+<script>
+  const map = new maplibregl.Map({
+    container: "map", // container id
+    style: "https://demotiles.maplibre.org/style.json", // style URL
+    center: [0, 0], // starting position [lng, lat]
+    zoom: 1, // starting zoom
+    maplibreLogo: true,
+  });
 </script>

@@ -7,7 +7,7 @@ const Sidebar = () => {
   const setTab = useStore((state) => state.setTab);
 
   return (
-    <aside>
+    <aside className="max-w-72">
       <Tabs
         value={tabs}
         defaultValue="env"
