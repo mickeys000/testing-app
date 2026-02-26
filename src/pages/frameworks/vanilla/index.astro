@@ -1,32 +1,30 @@
 ---
-import BaseLayout from "../layouts/base.astro";
+import BaseLayout from "../../../layouts/base.astro";
 ---
 
-<BaseLayout title="Select Framework">
+<BaseLayout title="Vanilla Engines">
   <main class="min-h-screen grid place-items-center px-6">
     <section class="w-full max-w-xl space-y-4">
-      <h1 class="text-3xl font-semibold">Select a framework</h1>
-      <p class="text-muted-foreground">
-        Start your testing session by choosing a framework implementation.
-      </p>
-      <nav class="grid gap-3" aria-label="Framework options">
+      <h1 class="text-3xl font-semibold">Select an engine</h1>
+      <p class="text-muted-foreground">Framework: Vanilla</p>
+      <nav class="grid gap-3" aria-label="Engine options">
         <a
-          href="/frameworks/vanilla"
+          href="/frameworks/vanilla/engines/maplibre"
           class="rounded-md border border-border px-4 py-3 hover:bg-accent hover:text-accent-foreground"
         >
-          Vanilla
+          MapLibre
         </a>
         <a
-          href="/frameworks/react"
+          href="/frameworks/vanilla/engines/leaflet"
           class="rounded-md border border-border px-4 py-3 hover:bg-accent hover:text-accent-foreground"
         >
-          React
+          Leaflet
         </a>
         <a
-          href="/frameworks/vue"
+          href="/frameworks/vanilla/engines/open-layers"
           class="rounded-md border border-border px-4 py-3 hover:bg-accent hover:text-accent-foreground"
         >
-          Vue
+          Open Layers
         </a>
       </nav>
     </section>

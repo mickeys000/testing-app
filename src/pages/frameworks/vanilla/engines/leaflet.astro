@@ -1,0 +1,37 @@
+---
+import TestHarnessLayout from "../../../../layouts/test-harness.astro";
+import LeafletCanvas from "../../../../components/engines/leaflet.astro";
+---
+
+<TestHarnessLayout
+  title="Vanilla + Leaflet"
+  framework="Vanilla"
+  engine="Leaflet"
+>
+  <Fragment slot="head">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      is:inline
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.css"
+    />
+    <script
+      is:inline
+      src="https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.js"></script>
+    <script
+      is:inline
+      src="https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.1.3/leaflet-maplibre-gl.js"
+    ></script>
+  </Fragment>
+
+  <LeafletCanvas />
+</TestHarnessLayout>

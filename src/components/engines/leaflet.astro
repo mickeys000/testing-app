@@ -5,7 +5,7 @@ const apiKeyNgdTiles = import.meta.env.PUBLIC_API_KEY_NGD_TILES;
 
 <article class="w-full h-full">
   <div
-    id="map-maplibre"
+    id="map-leaflet"
     class="w-full h-full"
     data-api-key-ngd-tiles={apiKeyNgdTiles}
     data-collection-id={collectionId}
@@ -14,22 +14,23 @@ const apiKeyNgdTiles = import.meta.env.PUBLIC_API_KEY_NGD_TILES;
 </article>
 
 <script>
-  const maplibregl = (window as any).maplibregl;
-  if (!maplibregl) {
-    throw new Error("maplibregl is not available on window");
+  const L = (window as any).L;
+  if (!L) {
+    throw new Error("Leaflet is not available on window");
   }
 
-  const mapElement = document.getElementById("map-maplibre");
+  const mapElement = document.getElementById("map-leaflet");
   if (!mapElement) {
-    throw new Error("Map container #map-maplibre not found");
+    throw new Error("Map container #map-leaflet not found");
   }
 
   const collectionId = mapElement.dataset.collectionId;
   const apiKeyNgdTiles = mapElement.dataset.apiKeyNgdTiles;
   if (!collectionId || !apiKeyNgdTiles) {
-    throw new Error("Missing NGD tiles configuration on #map-maplibre");
+    throw new Error("Missing NGD tiles configuration on #map-leaflet");
   }
 
+  const mapLeaflet = L.map("map-leaflet").setView([51.5072, -0.1276], 7);
   const styleUrl = `https://api.os.uk/maps/vector/ngd/ota/v1/collections/${collectionId}/styles/3857`;
   const tilesUrl = `https://api.os.uk/maps/vector/ngd/ota/v1/collections/${collectionId}/tiles/3857/{z}/{y}/{x}?key=${apiKeyNgdTiles}`;
 
@@ -43,16 +44,6 @@ const apiKeyNgdTiles = import.meta.env.PUBLIC_API_KEY_NGD_TILES;
       style.sources[collectionId].tiles = [tilesUrl];
       delete style.sources[collectionId].url;
 
-      const mapLibre = new maplibregl.Map({
-        container: "map-maplibre",
-        style,
-        center: [-0.1276, 51.5072],
-        zoom: 7,
-        maplibreLogo: true,
-      });
-
-      window.addEventListener("resize", () => {
-        mapLibre.resize();
-      });
+      L.maplibreGL({ style }).addTo(mapLeaflet);
     });
 </script>
