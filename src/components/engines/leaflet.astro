@@ -1,13 +1,49 @@
+---
+const collectionId = "ngd-base";
+const apiKeyNgdTiles = import.meta.env.PUBLIC_API_KEY_NGD_TILES;
+---
+
 <article class="w-full h-full">
-  <div id="map-leaflet" class="w-full h-full"></div>
+  <div
+    id="map-leaflet"
+    class="w-full h-full"
+    data-api-key-ngd-tiles={apiKeyNgdTiles}
+    data-collection-id={collectionId}
+  >
+  </div>
 </article>
 
 <script>
-  const mapLeaflet = L.map("map-leaflet").setView([51.505, -0.09], 13);
+  const L = (window as any).L;
+  if (!L) {
+    throw new Error("Leaflet is not available on window");
+  }
 
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution:
-      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  }).addTo(mapLeaflet);
+  const mapElement = document.getElementById("map-leaflet");
+  if (!mapElement) {
+    throw new Error("Map container #map-leaflet not found");
+  }
+
+  const collectionId = mapElement.dataset.collectionId;
+  const apiKeyNgdTiles = mapElement.dataset.apiKeyNgdTiles;
+  if (!collectionId || !apiKeyNgdTiles) {
+    throw new Error("Missing NGD tiles configuration on #map-leaflet");
+  }
+
+  const mapLeaflet = L.map("map-leaflet").setView([51.5072, -0.1276], 7);
+  const styleUrl = `https://api.os.uk/maps/vector/ngd/ota/v1/collections/${collectionId}/styles/3857`;
+  const tilesUrl = `https://api.os.uk/maps/vector/ngd/ota/v1/collections/${collectionId}/tiles/3857/{z}/{y}/{x}?key=${apiKeyNgdTiles}`;
+
+  fetch(styleUrl)
+    .then((response) => response.json())
+    .then((style) => {
+      if (!style?.sources?.[collectionId]) {
+        throw new Error(`Source ${collectionId} not found in OS style`);
+      }
+
+      style.sources[collectionId].tiles = [tilesUrl];
+      delete style.sources[collectionId].url;
+
+      L.maplibreGL({ style }).addTo(mapLeaflet);
+    });
 </script>

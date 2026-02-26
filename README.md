@@ -4,7 +4,7 @@ Astro app for testing multiple mapping engines across multiple UI frameworks.
 
 ## Routing model
 
-The app now uses route hierarchy to control which scripts and styles are loaded.
+The app uses route hierarchy to control which scripts and styles are loaded.
 
 - `/` → framework selection
 - `/frameworks/vanilla` → engine selection for vanilla
@@ -34,3 +34,11 @@ With per-engine pages under each framework, each route can keep asset loading is
 - `pnpm dev` starts local dev server at `localhost:4321`
 - `pnpm build` builds production output in `dist/`
 - `pnpm preview` previews the built app
+
+## Environment variables
+
+Set the NGD tiles API key in a local `.env` file:
+
+- `PUBLIC_API_KEY_NGD_TILES=your_key_here`
+
+This key is intentionally client-visible for this internal testing tool, but it is not hardcoded in source.
